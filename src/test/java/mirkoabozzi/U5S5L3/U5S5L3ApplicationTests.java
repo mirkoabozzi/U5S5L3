@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -15,15 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 class U5S5L3ApplicationTests {
     private List<Product> productList = new ArrayList<>();
     private Order order;
+    @Autowired
+    private MenuConfiguration menuConfiguration;
 
     @AfterEach
     public void cleanProductList() {
-        System.out.println("After each");
+        System.out.println("After each pulizia product list");
         productList.clear();
         System.out.println(productList);
     }
@@ -55,5 +59,11 @@ class U5S5L3ApplicationTests {
         double total = order.getTotalOrder();
         System.out.println(total);
         assertEquals(expectedTotal, total);
+    }
+
+    @Test
+    public void testBeerBeanNotNull() {
+        Drink drink = menuConfiguration.getBeer();
+        assertNotNull(drink);
     }
 }
