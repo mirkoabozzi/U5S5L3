@@ -10,13 +10,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class U5S5L3ApplicationTests {
@@ -24,6 +24,9 @@ class U5S5L3ApplicationTests {
     private Order order;
     @Autowired
     private MenuConfiguration menuConfiguration;
+    @Autowired
+    private ApplicationContext context;
+
 
     @AfterEach
     public void cleanProductList() {
@@ -65,5 +68,17 @@ class U5S5L3ApplicationTests {
     public void testBeerBeanNotNull() {
         Drink drink = menuConfiguration.getBeer();
         assertNotNull(drink);
+    }
+
+    @Test
+    public void testMenuBean() {
+        Menu menu = (Menu) context.getBean("getMenu");
+        assertNotNull(menu);
+    }
+
+    @Test
+    public void testMenuBeanPizzaListNotEmpty() {
+        Menu menu = context.getBean(Menu.class);
+        assertFalse(menu.getPizzaList().isEmpty());
     }
 }
