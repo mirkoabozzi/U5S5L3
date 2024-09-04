@@ -3,8 +3,8 @@ package mirkoabozzi.U5S5L3;
 import mirkoabozzi.U5S5L3.entities.*;
 import mirkoabozzi.U5S5L3.enums.OrderState;
 import mirkoabozzi.U5S5L3.enums.TableState;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -20,24 +20,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class U5S5L3ApplicationTests {
-    private List<Product> productList = new ArrayList<>();
-    private Order order;
+    private static List<Product> productList = new ArrayList<>();
+    private static Order order;
     @Autowired
     private ApplicationContext context;
     @Autowired
     private Menu menu;
 
 
-    @AfterEach
-    public void cleanProductList() {
-        System.out.println("After each pulizia product list");
+    @AfterAll
+    public static void cleanProductList() {
+        System.out.println("After all pulizia product list");
         productList.clear();
         System.out.println(productList);
     }
 
-    @BeforeEach
-    public void setUp() {
-        System.out.println("Set Up before each");
+    @BeforeAll
+    public static void setUp() {
+        System.out.println("Set Up before all");
         Topping topping = new Topping("Patatine");
         Topping topping1 = new Topping("Prosciutto");
         Pizza pizza = new Pizza("Patatine", 500, 6.5, topping);
