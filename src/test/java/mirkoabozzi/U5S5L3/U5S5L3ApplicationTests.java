@@ -23,9 +23,9 @@ class U5S5L3ApplicationTests {
     private List<Product> productList = new ArrayList<>();
     private Order order;
     @Autowired
-    private MenuConfiguration menuConfiguration;
-    @Autowired
     private ApplicationContext context;
+    @Autowired
+    private Menu menu;
 
 
     @AfterEach
@@ -57,7 +57,7 @@ class U5S5L3ApplicationTests {
     }
 
     @ParameterizedTest
-    @CsvSource({"19"})
+    @CsvSource({"19", "16"})
     public void testGetTotalOrderParametrized(double expectedTotal) {
         double total = order.getTotalOrder();
         System.out.println(total);
@@ -66,7 +66,7 @@ class U5S5L3ApplicationTests {
 
     @Test
     public void testBeerBeanNotNull() {
-        Drink drink = menuConfiguration.getBeer();
+        Drink drink = (Drink) context.getBean("getBeer");
         assertNotNull(drink);
     }
 
@@ -77,8 +77,18 @@ class U5S5L3ApplicationTests {
     }
 
     @Test
-    public void testMenuBeanPizzaListNotEmpty() {
-        Menu menu = context.getBean(Menu.class);
+    public void testMenuPizzaListNotEmpty() {
+//        Menu menu = context.getBean(Menu.class);
         assertFalse(menu.getPizzaList().isEmpty());
+    }
+
+    @Test
+    public void testMenuDrinkListNotEmpty() {
+        assertFalse(menu.getDrinkList().isEmpty());
+    }
+
+    @Test
+    public void testMenuToppingListNotEmpty() {
+        assertFalse(menu.getToppingList().isEmpty());
     }
 }
